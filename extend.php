@@ -1,0 +1,39 @@
+<?php
+
+/*
+ * Recipes — structured recipe blocks for Flarum posts.
+ *
+ * The SERVER marks a recipe in the post and, at render time, reads it into a
+ * card (Formatter\Render) and into schema.org data (Seo\RecipeJsonLd). The
+ * BROWSER only adds what needs a reader: the servings stepper, timers and the
+ * print view. Every editor writes the same text — see src/Recipe.php.
+ */
+
+use ErnestDefoe\Recipes\Formatter\Configure;
+use ErnestDefoe\Recipes\Formatter\Render;
+use ErnestDefoe\Recipes\Seo\RecipeJsonLd;
+use Flarum\Extend;
+
+return [
+    (new Extend\Frontend('forum'))
+        ->js(__DIR__.'/js/dist/forum.js')
+        /*
+         * 🚨 Not optional. The composer form, the editor node and the preview
+         * are dynamic imports, so a reader who never posts a recipe pays only
+         * for the card. Flarum does not publish an extension's chunk files
+         * unless their directory is declared; without this the chunks 404 and
+         * the Recipe button silently does nothing.
+         */
+        ->jsDirectory(__DIR__.'/js/dist/forum')
+        ->css(__DIR__.'/less/forum.less')
+        ->content(RecipeJsonLd::class),
+
+    (new Extend\Frontend('admin'))
+        ->js(__DIR__.'/js/dist/admin.js'),
+
+    new Extend\Locales(__DIR__.'/locale'),
+
+    (new Extend\Formatter())
+        ->configure(Configure::class)
+        ->render(Render::class),
+];
