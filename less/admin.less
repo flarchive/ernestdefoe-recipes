@@ -1,0 +1,77 @@
+// The recipe fields editor (admin/FieldsEditor.tsx).
+.RecipeFields {
+  // The admin's .Form-group shrinks its children to fit; this list should not.
+  align-items: stretch;
+}
+
+.RecipeFields-list {
+  width: 100%;
+  margin: 12px 0;
+  padding: 0;
+  list-style: none;
+}
+
+.RecipeFields-row {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 4px 12px;
+  align-items: start;
+  margin-bottom: 10px;
+  padding: 12px;
+  border: 1px solid var(--control-bg);
+  border-radius: var(--border-radius);
+  background: var(--body-bg);
+
+  &.sortable-ghost {
+    opacity: 0.4;
+  }
+
+  > .RecipeFields-error,
+  > .RecipeFields-keyHelp {
+    // Not `2 / 3`: LESS reads that as a division and drops the declaration.
+    grid-column: 2;
+    margin: 0;
+  }
+}
+
+.RecipeFields-handle {
+  padding: 26px 4px 0;
+  color: var(--muted-color);
+  cursor: grab;
+}
+
+.RecipeFields-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 10px;
+
+  label {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--muted-color);
+  }
+}
+
+.RecipeFields-remove {
+  margin-top: 20px;
+}
+
+.RecipeFields-invalid {
+  border-color: var(--alert-error-bg);
+}
+
+.RecipeFields-error {
+  color: var(--alert-error-color, var(--error-color));
+  font-size: 12px;
+}
+
+.RecipeFields > .Button {
+  align-self: flex-start;
+}
+
+.RecipeFields-empty {
+  color: var(--muted-color);
+}

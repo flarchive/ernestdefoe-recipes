@@ -1,0 +1,600 @@
+// Recipes — the card, its controls, the editor card, the form and the print view.
+// Colours come from Flarum's own custom properties, so dark mode and every
+// theme that sets them are followed without a line here.
+
+.Recipe {
+  position: relative;
+  margin: 1.2em 0;
+  padding: 18px 22px;
+  border: 1px solid var(--control-bg);
+  border-radius: var(--border-radius);
+  background: var(--body-bg);
+  overflow: hidden;
+  line-height: 1.55;
+}
+
+// Through .Post-body: themes cap `.Post-body img` at 100%, which left a gap
+// beside the photo on the right.
+.Post-body .Recipe-image,
+.Recipe-image {
+  display: block;
+  width: calc(100% + 44px);
+  max-width: none;
+  max-height: 380px;
+  margin: -18px -22px 16px;
+  object-fit: cover;
+}
+
+.Recipe-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 6px 12px;
+}
+
+.Recipe-title {
+  flex: 1 1 60%;
+  margin: 0;
+  font-size: 1.45em;
+  line-height: 1.25;
+  color: var(--heading-color);
+}
+
+.Recipe-print {
+  order: 2;
+  margin: -6px -10px 0 auto;
+  color: var(--muted-color);
+}
+
+.Recipe-meta {
+  order: 3;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 26px;
+  width: 100%;
+  margin: 6px 0 0;
+
+  dt {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted-color);
+  }
+
+  dd {
+    margin: 0;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+// The admin's fields (protein, calories, …): a second row, quieter than the times.
+.Recipe-facts {
+  order: 4;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 22px;
+  width: 100%;
+  margin: 10px 0 0;
+  padding-top: 10px;
+  border-top: 1px dashed var(--control-bg);
+
+  dt {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted-color);
+  }
+
+  dd {
+    margin: 0;
+  }
+}
+
+.Recipe-factValue {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+
+  .Recipe--scaled &[data-scale] {
+    color: var(--primary-color);
+  }
+}
+
+.Recipe-factPer {
+  font-size: 0.85em;
+  color: var(--muted-color);
+}
+
+.Recipe-servings--interactive {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  margin-left: -8px;
+
+  .Button--icon {
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border-radius: 50%;
+    color: var(--muted-color);
+
+    &:disabled {
+      opacity: 0.35;
+    }
+  }
+}
+
+.Recipe-servingsValue {
+  min-width: 2ch;
+  text-align: center;
+}
+
+.Recipe-reset {
+  padding: 0 4px;
+
+  // Flarum's .Button sets a display that would beat the attribute.
+  &[hidden] {
+    display: none;
+  }
+
+  font-weight: 600;
+  color: var(--muted-color);
+}
+
+.Recipe-description {
+  margin: 14px 0 0;
+  white-space: pre-line;
+  // Not --muted-color-dark: dark themes leave it dark, and the text vanished.
+  color: var(--muted-color);
+}
+
+.Recipe-section {
+  margin-top: 18px;
+}
+
+.Recipe-sectionTitle {
+  margin: 0 0 6px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--control-bg);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--muted-color);
+}
+
+.Post-body .Recipe-list,
+.Recipe-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.Recipe-list--ingredients {
+  columns: 2 240px;
+  column-gap: 32px;
+
+  li {
+    break-inside: avoid;
+  }
+}
+
+.Recipe-ingredient {
+  padding: 4px 0;
+}
+
+.Recipe-qty,
+.Recipe-unit {
+  font-weight: 600;
+}
+
+.Recipe-qty {
+  font-variant-numeric: tabular-nums;
+  transition: color 0.2s;
+}
+
+.Recipe--scaled .Recipe-qty {
+  color: var(--primary-color);
+}
+
+.Recipe-group {
+  padding: 10px 0 2px;
+  font-weight: 700;
+  break-after: avoid;
+
+  &:first-child {
+    padding-top: 2px;
+  }
+}
+
+.Recipe-list--steps {
+  counter-reset: recipe-step;
+}
+
+.Recipe-step {
+  position: relative;
+  padding: 7px 0 7px 2.5em;
+  counter-increment: recipe-step;
+
+  &::before {
+    content: counter(recipe-step);
+    position: absolute;
+    top: 7px;
+    left: 0;
+    width: 1.75em;
+    height: 1.75em;
+    border-radius: 50%;
+    background: var(--primary-color);
+    color: var(--body-bg);
+    font-size: 0.85em;
+    font-weight: 700;
+    line-height: 1.75em;
+    text-align: center;
+  }
+}
+
+.Recipe-timer {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin: 0 1px;
+  padding: 0 9px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--control-bg);
+  color: var(--control-color);
+  font: inherit;
+  font-size: 0.9em;
+  font-weight: 600;
+  line-height: 1.75;
+  white-space: nowrap;
+  vertical-align: baseline;
+  font-variant-numeric: tabular-nums;
+}
+
+button.Recipe-timer {
+  cursor: pointer;
+
+  &:hover,
+  &:focus-visible {
+    background: var(--control-bg-shaded, var(--control-bg));
+  }
+
+  &[data-state='running'] {
+    background: var(--primary-color);
+    color: var(--body-bg);
+  }
+
+  &[data-state='paused'] {
+    box-shadow: inset 0 0 0 2px var(--primary-color);
+  }
+
+  &[data-state='done'] {
+    background: var(--alert-error-bg);
+    color: var(--alert-error-color);
+    animation: Recipe-ring 1s ease-in-out infinite;
+  }
+}
+
+@keyframes Recipe-ring {
+  50% {
+    transform: scale(1.06);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  button.Recipe-timer[data-state='done'] {
+    animation: none;
+  }
+}
+
+// A block the server could not read, and the composer preview before it is drawn.
+.Recipe-source {
+  white-space: pre-wrap;
+  font-family: var(--font-family-monospace, monospace);
+  font-size: 0.9em;
+  color: var(--muted-color);
+}
+
+.Recipe-source--card {
+  white-space: normal;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+// The block inside Scribe and FoF Rich Text.
+.Recipe-editorCard {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0.6em 0;
+  padding: 10px 14px;
+  border: 1px solid var(--control-bg);
+  border-radius: var(--border-radius);
+  background: var(--control-bg-light, var(--body-bg));
+  cursor: default;
+  user-select: none;
+
+  .icon {
+    color: var(--primary-color);
+  }
+
+  &.ProseMirror-selectednode {
+    outline: 2px solid var(--primary-color);
+  }
+}
+
+.Recipe-editorTitle {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.RecipeModal .Form-group,
+.RecipeModal-row {
+  width: 100%;
+}
+
+.RecipeModal-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gap, 24px) 12px;
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.RecipeModal-list {
+  min-height: 120px;
+}
+
+// Variants: "Based on …" on a variant, the list of variants under an original.
+.Recipe-basedOn {
+  order: 4;
+  width: 100%;
+  margin: 8px 0 0;
+  font-size: 0.9em;
+  color: var(--muted-color);
+
+  .icon {
+    margin-right: 4px;
+  }
+}
+
+.Recipe-remix {
+  position: relative;
+  order: 2;
+  margin-top: -6px;
+}
+
+.Recipe-remixButton {
+  color: var(--muted-color);
+}
+
+.Recipe-remixMenu {
+  position: absolute;
+  z-index: 2;
+  top: 100%;
+  right: 0;
+  min-width: 200px;
+  padding: 6px 0;
+  border-radius: var(--border-radius);
+  background: var(--body-bg);
+  box-shadow: 0 6px 16px var(--shadow-color, rgba(0, 0, 0, 0.2));
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+.Recipe-remixItem {
+  display: block;
+  width: 100%;
+  padding: 8px 15px;
+  border: 0;
+  background: none;
+  color: var(--text-color);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+
+  &:hover,
+  &:focus-visible {
+    background: var(--control-bg);
+  }
+}
+
+.Recipe-variants {
+  margin-top: 18px;
+}
+
+.Post-body .Recipe-variantList,
+.Recipe-variantList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    padding: 4px 0;
+  }
+
+  .icon {
+    color: var(--muted-color);
+  }
+}
+
+.Recipe-variantBy {
+  color: var(--muted-color);
+}
+
+// The directory, /recipes.
+.RecipesPage-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.RecipesPage-search {
+  flex: 1 1 240px;
+}
+
+.RecipesPage-tag {
+  flex: 0 1 220px;
+}
+
+.RecipesPage-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.RecipesPage-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  border: 1px solid var(--control-bg);
+  border-radius: var(--border-radius);
+  background: var(--body-bg);
+  color: var(--text-color);
+  transition: border-color 0.15s;
+
+  &:hover,
+  &:focus-visible {
+    border-color: var(--primary-color);
+    text-decoration: none;
+  }
+}
+
+.RecipesPage-image {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 16 / 10;
+  background: var(--control-bg);
+  color: var(--muted-color);
+  font-size: 32px;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.RecipesPage-variant {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--body-bg);
+  color: var(--text-color);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.RecipesPage-body {
+  padding: 10px 12px 12px;
+}
+
+.RecipesPage-title {
+  margin: 0 0 2px;
+  font-size: 1.05em;
+  line-height: 1.3;
+}
+
+.RecipesPage-by,
+.RecipesPage-meta {
+  margin: 0;
+  font-size: 0.85em;
+  color: var(--muted-color);
+}
+
+.RecipesPage-meta {
+  display: flex;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+.RecipesPage-empty {
+  padding: 40px 0;
+  color: var(--muted-color);
+  text-align: center;
+}
+
+.RecipesPage-more {
+  margin-top: 16px;
+  text-align: center;
+}
+
+// Print: one recipe, nothing else (see forum/card.ts print()).
+.Recipe-printRoot {
+  display: none;
+}
+
+@media print {
+  body.Recipe-printing {
+    > *:not(.Recipe-printRoot) {
+      display: none !important;
+    }
+
+    .Recipe-printRoot {
+      display: block;
+    }
+  }
+
+  .Recipe--print {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 12pt;
+
+    .Recipe-image {
+      width: 100%;
+      max-height: 240px;
+      margin: 0 0 12pt;
+    }
+
+    .Recipe-print,
+    .Recipe-remix,
+    .Recipe-servings--interactive .Button,
+    .Recipe-reset,
+    .Recipe-timer .icon {
+      display: none !important;
+    }
+
+    .Recipe-timer {
+      padding: 0;
+      font-size: inherit;
+    }
+
+    // Core's print sheet makes every background transparent; a ring prints.
+    .Recipe-step::before {
+      border: 1px solid #000;
+      line-height: calc(1.75em - 2px);
+    }
+
+    .Recipe-step,
+    .Recipe-ingredient {
+      break-inside: avoid;
+    }
+  }
+
+  .Recipe-printSource {
+    margin-top: 18pt;
+    font-size: 9pt;
+  }
+}
