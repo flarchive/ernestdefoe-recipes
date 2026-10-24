@@ -2,13 +2,18 @@
 
 > **Read-only archive of released versions of ernestdefoe/recipes.** Not for installation: use [Packagist](https://packagist.org/packages/ernestdefoe/recipes) or the [upstream repository](https://github.com/ernestdefoe/recipes).
 
-**0** versions archived · Latest: [`1.3.1`](https://github.com/flarchive/ernestdefoe-recipes/tree/archive/v1.3.1) · License: `MIT` · Flarum: `^2.0`
+**6** versions archived · Latest: [`1.3.1`](https://github.com/flarchive/ernestdefoe-recipes/tree/archive/v1.3.1) · License: `MIT` · Flarum: `^2.0`
 
 ## Archived Versions
 
 | Version | Released | Flarum | Source |
 |---|---|---|---|
-| — | — | — | — |
+| `1.0.0` | 2026-10-16 | `^2.0` | [Browse](https://github.com/flarchive/ernestdefoe-recipes/tree/archive/v1.0.0) |
+| `1.1.0` | 2026-10-17 | `^2.0` | [Browse](https://github.com/flarchive/ernestdefoe-recipes/tree/archive/v1.1.0) |
+| `1.1.1` | 2026-10-17 | `^2.0` | [Browse](https://github.com/flarchive/ernestdefoe-recipes/tree/archive/v1.1.1) |
+| `1.2.0` | 2026-10-18 | `^2.0` | [Browse](https://github.com/flarchive/ernestdefoe-recipes/tree/archive/v1.2.0) |
+| `1.3.0` | 2026-10-24 | `^2.0` | [Browse](https://github.com/flarchive/ernestdefoe-recipes/tree/archive/v1.3.0) |
+| `1.3.1` | 2026-10-24 | `^2.0` | [Browse](https://github.com/flarchive/ernestdefoe-recipes/tree/archive/v1.3.1) |
 
 Catalog entry: [packages/ernestdefoe-recipes.json](https://github.com/flarchive/archive-index/blob/main/packages/ernestdefoe-recipes.json)
 
