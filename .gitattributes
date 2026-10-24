@@ -1,0 +1,10 @@
+/.github export-ignore
+/tests export-ignore
+/js/src export-ignore
+/js/tests export-ignore
+/js/*.json export-ignore
+/js/*.ts export-ignore
+/js/webpack.config.js export-ignore
+/phpstan.neon export-ignore
+/.styleci.yml export-ignore
+/CLAUDE.md export-ignore
