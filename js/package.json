@@ -1,0 +1,26 @@
+{
+  "private": true,
+  "name": "@ernestdefoe/recipes",
+  "version": "0.1.0",
+  "description": "Structured recipes in Flarum posts",
+  "devDependencies": {
+    "@flarum/prettier-config": "^1.0.0",
+    "flarum-tsconfig": "^2.0.0",
+    "flarum-webpack-config": "^3.1.0",
+    "prettier": "^3.9.10",
+    "typescript": "^5.9.3",
+    "typescript-coverage-report": "~1.0.0",
+    "webpack": "^5.0.0",
+    "webpack-cli": "^7.2.3"
+  },
+  "scripts": {
+    "dev": "webpack --mode development --watch",
+    "build": "webpack --mode production",
+    "format": "prettier --write src",
+    "format-check": "prettier --check src",
+    "check-typings": "tsc --noEmit --project tsconfig.json",
+    "check-typings-coverage": "typescript-coverage-report",
+    "test": "tsc src/common/amount.ts src/common/source.ts --outDir ../.test-build --target es2020 --module es2020 --moduleResolution node && node tests/amount.test.mjs && node tests/source.test.mjs"
+  },
+  "prettier": "@flarum/prettier-config"
+}
